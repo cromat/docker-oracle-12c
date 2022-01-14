@@ -1,23 +1,43 @@
 Oracle Standard Edition 12c Release 2
 ============================
 
-[![Docker Repository on Quay](https://quay.io/repository/maksymbilenko/oracle-12c/status "Docker Repository on Quay")](https://quay.io/repository/maksymbilenko/oracle-12c)
+This fork is made due to the errors that I encountered while running docker from MaksymBilenko/docker-oracle-12c
+
+The following errors occured while I was trying to run docker image:
+
+ORA-03114: not connected to ORACLE
+...
+3% complete 
+DBCA Operation failed.
+
+and of course, if you didn't check the logs, you will get following error when trying to connect with sqlplus:
+
+Unable to start listener TNS Adapter error
+
+I got it working by changing dbca command in entrypoint.sh
 
 ### Installation
 
-    docker pull quay.io/maksymbilenko/oracle-12c
+Download or clone this repository, open terminal within directory and run:
+
+    docker build -t myrepo/oracle-12c .
 
 Run with 8080 and 1521 ports opened:
 
-    docker run -d -p 8080:8080 -p 1521:1521 quay.io/maksymbilenko/oracle-12c
+    docker run --name oracle-12c -d -p 8080:8080 -p 1521:1521 myrepo/oracle-12c
+    
+Creation of Oracle DB takes about 10 minutes so you will not be able to connect to it until it's complete.
+You can watch creation status with following command:
+
+    docker logs [container ip or name]
 
 Run with data on host and reuse it:
 
-    docker run -d -p 8080:8080 -p 1521:1521 -v /my/oracle/data:/u01/app/oracle quay.io/maksymbilenko/oracle-12c
+    docker run --name oracle-12c -d -p 8080:8080 -p 1521:1521 -v /my/oracle/data:/u01/app/oracle myrepo/oracle-12c
 
 Run with Custom DBCA_TOTAL_MEMORY (in Mb):
 
-    docker run -d -p 8080:8080 -p 1521:1521 -v /my/oracle/data:/u01/app/oracle -e DBCA_TOTAL_MEMORY=4096 quay.io/maksymbilenko/oracle-12c
+    docker run --name oracle-12c -d -p 8080:8080 -p 1521:1521 -v /my/oracle/data:/u01/app/oracle -e DBCA_TOTAL_MEMORY=4096 myrepo/oracle-12c
 
 Connect database with following setting:
 
@@ -59,12 +79,12 @@ Connect to Oracle Enterprise Management console with following settings:
 
 By Default web management console is enabled. To disable add env variable:
 
-    docker run -d -e WEB_CONSOLE=false -p 1521:1521 -v /my/oracle/data:/u01/app/oracle quay.io/maksymbilenko/oracle-12c
+    docker run -d -e WEB_CONSOLE=false -p 1521:1521 -v /my/oracle/data:/u01/app/oracle myrepo/oracle-12c
     #You can Enable/Disable it on any time
 
 Start with additional init scripts or dumps:
 
-    docker run -d -p 1521:1521 -v /my/oracle/data:/u01/app/oracle -v /my/oracle/init/SCRIPTSorSQL:/docker-entrypoint-initdb.d quay.io/maksymbilenko/oracle-12c
+    docker run -d -p 1521:1521 -v /my/oracle/data:/u01/app/oracle -v /my/oracle/init/SCRIPTSorSQL:/docker-entrypoint-initdb.d myrepo/oracle-12c
     
 By default Import from `docker-entrypoint-initdb.d` is enabled only if you are initializing database (1st run).
 
