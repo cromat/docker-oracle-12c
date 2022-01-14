@@ -5,14 +5,14 @@ This fork is made due to the errors that I encountered while running docker from
 
 The following errors occured while I was trying to run docker image:
 
-ORA-03114: not connected to ORACLE
-...
-3% complete 
-DBCA Operation failed.
+    ORA-03114: not connected to ORACLE
+    ...
+    3% complete 
+    DBCA Operation failed.
 
 and of course, if you didn't check the logs, you will get following error when trying to connect with sqlplus:
 
-Unable to start listener TNS Adapter error
+    Unable to start listener TNS Adapter error
 
 I got it working by changing dbca command in entrypoint.sh
 
