@@ -34,6 +34,8 @@ You can watch creation status with following command:
 Run with data on host and reuse it:
 
     docker run --name oracle-12c -d -p 8080:8080 -p 1521:1521 -v /my/oracle/data:/u01/app/oracle myrepo/oracle-12c
+    
+If you want to change configuration or create new database, you will need to delete all files in your host volume foluder (e.g. in /my/oracle/data)
 
 Run with Custom DBCA_TOTAL_MEMORY (in Mb):
 
