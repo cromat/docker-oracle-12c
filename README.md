@@ -22,6 +22,8 @@ Download or clone this repository, open terminal within directory and run:
 
     docker build -t myrepo/oracle-12c .
 
+If you get failed to load cache key errors, in cmd run: `set DOCKER_BUILDKIT=0` and try again.
+
 Run with 8080 and 1521 ports opened:
 
     docker run --name oracle-12c -d -p 8080:8080 -p 1521:1521 myrepo/oracle-12c
