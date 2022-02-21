@@ -22,7 +22,7 @@ Download or clone this repository, open terminal within directory and run:
 
     docker build -t myrepo/oracle-12c .
 
-If you get failed to load cache key errors, in cmd run: `set DOCKER_BUILDKIT=0` and try again.
+If you get failed to load cache key errors, in cmd run: `set DOCKER_BUILDKIT=0` and try again or try to pull parent image first `docker pull quay.io/maksymbilenko/oracle-12c`.
 
 Run with 8080 and 1521 ports opened:
 
@@ -32,10 +32,6 @@ Creation of Oracle DB takes about 10 minutes so you will not be able to connect 
 You can watch creation status with following command:
 
     docker logs [container ip or name]
-
-Run with data on host and reuse it:
-
-    docker run --name oracle-12c -d -p 8080:8080 -p 1521:1521 -v /my/oracle/data:/u01/app/oracle myrepo/oracle-12c
     
 If you want to change configuration or create new database, you will need to delete all files in your host volume foluder (e.g. in /my/oracle/data)
 
