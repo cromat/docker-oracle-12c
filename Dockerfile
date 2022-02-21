@@ -11,8 +11,6 @@ ENV ORACLE_SID xe
 
 ADD entrypoint.sh /entrypoint.sh
 
-RUN yum install -y curl && yum clean all
-
 EXPOSE 1521
 EXPOSE 8080
 VOLUME ["/docker-entrypoint-initdb.d"]
